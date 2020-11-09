@@ -44,7 +44,7 @@ namespace AddressBookUsingLinq
 
             var contact = (from record in addressBook.AsEnumerable()
                            where record.firstName == firstName && record.lastName == lastName
-                           select record).FirstOrDefault(); 
+                           select record).FirstOrDefault();
             Console.WriteLine("Enter option to update ");
             Console.WriteLine("1.Address");
             Console.WriteLine("2.City");
@@ -119,6 +119,49 @@ namespace AddressBookUsingLinq
                            where record.firstName == firstName && record.lastName == lastName
                            select record).FirstOrDefault();
             addressBook.Remove(contact);
+            foreach (var record in addressBook)
+            {
+                Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
+                                $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+            }
+        }
+        public void GetContactUsingCityOrStateName()
+        {
+            Console.WriteLine("Enter the choice");
+            Console.WriteLine("C - City.");
+            Console.WriteLine("S - State.");
+            string choice = Console.ReadLine();
+            Console.WriteLine("Enter the name of City or State by which you want the data -");
+            string cityOrState = Console.ReadLine();
+            if (choice == "C")
+            {
+                /// Query to implement the retrieval of the data from the address book based on city
+                var contact = from record in addressBook.AsEnumerable()
+                              where record.city == cityOrState
+                              select record;
+               
+                foreach (var record in contact)
+                {
+                    Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
+                                    $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                    $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+                }
+            }
+            else
+            {
+
+                var matchedRecord = from record in addressBook.AsEnumerable()
+                                    where record.state == cityOrState
+                                    select record;
+                foreach (var record in matchedRecord)
+                {
+                    Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
+                                    $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                    $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+                    Console.WriteLine("\n \n");
+                }
+            }
         }
     }
 }
