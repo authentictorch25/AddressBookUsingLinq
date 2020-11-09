@@ -198,14 +198,26 @@ namespace AddressBookUsingLinq
             Console.WriteLine("Enter the City ");
             string city = Console.ReadLine();
             var contact = (from record in addressBook.AsEnumerable()
-                              orderby record.firstName
-                              where (record.city == city)
-                              select record);
+                           orderby record.firstName
+                           where (record.city == city)
+                           select record);
             foreach (var record in contact)
             {
                 Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
                                 $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
                                 $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
+            }
+        }
+        public void ContactbyType()
+        {
+            Console.WriteLine("CountByType");
+
+            var contactbyType = (from records in addressBook.AsEnumerable()
+                                 group records by records.contactType into Group
+                                 select new { ContactType = Group.Key, NumberOfContacts = Group.Count() });
+            foreach (var record in contactbyType)
+            {
+                Console.WriteLine($"City : {record.ContactType}, Number Of Contacts : {record.NumberOfContacts}");
             }
         }
     }
