@@ -105,5 +105,20 @@ namespace AddressBookUsingLinq
                                     $"Phone Number: {contact.phoneNumber}\nContact Type: {contact.contactType}\nAddress Book Name : {contact.addressBookName}");
 
         }
+        /// <summary>
+        /// Deletes the contact.
+        /// </summary>
+        public void DeleteContact()
+        {
+            Console.WriteLine("Enter the First Name");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Enter the last Name");
+            string lastName = Console.ReadLine();
+
+            var contact = (from record in addressBook.AsEnumerable()
+                           where record.firstName == firstName && record.lastName == lastName
+                           select record).FirstOrDefault();
+            addressBook.Remove(contact);
+        }
     }
 }
