@@ -126,6 +126,9 @@ namespace AddressBookUsingLinq
                                 $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
             }
         }
+        /// <summary>
+        /// Gets the name of the contact using city or state.
+        /// </summary>
         public void GetContactUsingCityOrStateName()
         {
             Console.WriteLine("Enter the choice");
@@ -136,7 +139,7 @@ namespace AddressBookUsingLinq
             string cityOrState = Console.ReadLine();
             if (choice == "C")
             {
-                /// Query to implement the retrieval of the data from the address book based on city
+               
                 var contact = from record in addressBook.AsEnumerable()
                               where record.city == cityOrState
                               select record;
@@ -151,10 +154,10 @@ namespace AddressBookUsingLinq
             else
             {
 
-                var matchedRecord = from record in addressBook.AsEnumerable()
+                var contact = from record in addressBook.AsEnumerable()
                                     where record.state == cityOrState
                                     select record;
-                foreach (var record in matchedRecord)
+                foreach (var record in contact)
                 {
                     Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
                                     $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
