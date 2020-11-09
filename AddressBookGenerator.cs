@@ -139,11 +139,11 @@ namespace AddressBookUsingLinq
             string cityOrState = Console.ReadLine();
             if (choice == "C")
             {
-               
+
                 var contact = from record in addressBook.AsEnumerable()
                               where record.city == cityOrState
                               select record;
-               
+
                 foreach (var record in contact)
                 {
                     Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
@@ -155,8 +155,8 @@ namespace AddressBookUsingLinq
             {
 
                 var contact = from record in addressBook.AsEnumerable()
-                                    where record.state == cityOrState
-                                    select record;
+                              where record.state == cityOrState
+                              select record;
                 foreach (var record in contact)
                 {
                     Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
@@ -174,8 +174,8 @@ namespace AddressBookUsingLinq
             Console.WriteLine("CountByCity");
 
             var countbyCity = (from records in addressBook.AsEnumerable()
-                                group records by records.city into Group
-                                select new { City = Group.Key, NumberOfContacts = Group.Count() });
+                               group records by records.city into Group
+                               select new { City = Group.Key, NumberOfContacts = Group.Count() });
 
             foreach (var record in countbyCity)
             {
@@ -188,6 +188,24 @@ namespace AddressBookUsingLinq
             foreach (var record in countbyState)
             {
                 Console.WriteLine($"State : {record.State}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+        }
+        /// <summary>
+        /// Sorteds the details alphabetically by name for a city.
+        /// </summary>
+        public void SortedDetailsByNameGivenCity()
+        {
+            Console.WriteLine("Enter the City ");
+            string city = Console.ReadLine();
+            var contact = (from record in addressBook.AsEnumerable()
+                              orderby record.firstName
+                              where (record.city == city)
+                              select record);
+            foreach (var record in contact)
+            {
+                Console.WriteLine($"First Name:{record.firstName}\nSecond Name:{record.lastName}\n" +
+                                $"Address:{record.address}, City:{record.city}, State:{record.state} PinCode: {record.zip}\n" +
+                                $"Phone Number: {record.phoneNumber}\nContact Type: {record.contactType}\nAddress Book Name : {record.addressBookName}");
             }
         }
     }
