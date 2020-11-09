@@ -166,5 +166,29 @@ namespace AddressBookUsingLinq
                 }
             }
         }
+        /// <summary>
+        /// Gets the state of the count by city or.
+        /// </summary>
+        public void GetCountByCityOrState()
+        {
+            Console.WriteLine("CountByCity");
+
+            var countbyCity = (from records in addressBook.AsEnumerable()
+                                group records by records.city into Group
+                                select new { City = Group.Key, NumberOfContacts = Group.Count() });
+
+            foreach (var record in countbyCity)
+            {
+                Console.WriteLine($"City : {record.City}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+            Console.WriteLine("CountByState");
+            var countbyState = (from records in addressBook.AsEnumerable()
+                                group records by records.state into Group
+                                select new { State = Group.Key, NumberOfContacts = Group.Count() });
+            foreach (var record in countbyState)
+            {
+                Console.WriteLine($"State : {record.State}, Number Of Contacts : {record.NumberOfContacts}");
+            }
+        }
     }
 }
