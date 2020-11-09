@@ -13,6 +13,12 @@ namespace AddressBookUsingLinq
             gen.DeleteContact();
             /// UC5 
             gen.GetContactUsingCityOrStateName();
+            /// UC6
+            gen.GetCountByCityOrState();
+            ///UC7
+            gen.SortedDetailsByNameGivenCity();
+            ///UC8
+            gen.ContactbyType();
         }
     }
 }
